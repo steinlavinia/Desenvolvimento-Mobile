@@ -40,9 +40,9 @@ interface Item {
 export default function App() {
   const [item, setItem] = useState<string>("");
   const [lista, setLista] = useState<Item[]>([
-    { id: "1", nome: "Arroz" },
-    { id: "2", nome: "Feijão" },
-    { id: "3", nome: "Leite" },
+    { id: "1", nome: "Maça" },
+    { id: "2", nome: "Banana" },
+    { id: "3", nome: "Melancia" },
   ]);
 
   const adicionarItem = () => {
