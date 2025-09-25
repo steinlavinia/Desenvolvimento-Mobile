@@ -19,74 +19,53 @@
 //     )
 // }
 
-import React, { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
-
-import { AntDesign } from "@expo/vector-icons";
-import { styles } from "./Style";
-
-
-interface Item {
-  id: string;
-  nome: string;
-}
+import React, { useState } from 'react';
+import { Text, View, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
+import styles from './styles/styles';
 
 export default function App() {
-  const [item, setItem] = useState<string>("");
-  const [lista, setLista] = useState<Item[]>([
-    { id: "1", nome: "Maça" },
-    { id: "2", nome: "Banana" },
-    { id: "3", nome: "Melancia" },
-  ]);
+  const [texto, setTexto] = useState('');
+  const [lista, setLista] = useState([]);
 
   const adicionarItem = () => {
-    if (item.trim() === "") return;
-    setLista([...lista, { id: Date.now().toString(), nome: item }]);
-    setItem("");
+    if (texto.trim() === '') return;
+    setLista([...lista, { id: Date.now().toString(), value: texto }]);
+    setTexto('');
   };
 
-  const renderItem = ({ item, index }: { item: Item; index: number }) => (
-    <View
-      style={[
-        styles.item,
-        index === lista.length - 1 && { borderBottomWidth: 0 },
-      ]}
-    >
-      <AntDesign name="checkcircle" size={20} color="#055200" />
-      <Text style={styles.texto}>{item.nome}</Text>
-    </View>
-  );
+  const excluirItem = (id) => {
+    setLista(lista.filter((item) => item.id !== id));
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Lista de Compras</Text>
+      <Text style={styles.titulo}>Lista de Tarefas</Text>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o Produto"
-          placeholderTextColor="#055200"
-          value={item}
-          onChangeText={setItem}
-        />
-        <TouchableOpacity style={styles.botao} onPress={adicionarItem}>
-          <AntDesign name="pluscircleo" size={24} color="055200" />
-        </TouchableOpacity>
-      </View>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite algo"
+        value={texto}
+        onChangeText={setTexto}
+      />
 
-      <View style={styles.listaContainer}>
-        <FlatList
-          data={lista}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
+      <Button title="Adicionar" onPress={adicionarItem} />
+
+      <FlatList
+        data={lista}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Text style={styles.itemTexto}>{item.value}</Text>
+
+            <TouchableOpacity
+              style={styles.botaoExcluir}
+              onPress={() => excluirItem(item.id)}
+            >
+              <Text style={styles.botaoTexto}>Excluir</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </View>
   );
 }
