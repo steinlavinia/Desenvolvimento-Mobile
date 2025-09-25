@@ -19,9 +19,21 @@
 //     )
 // }
 
-import React, { useState } from 'react';
-import { Text, View, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
-import styles from './styles/styles';
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+
+import { styles } from "./Style";
+
+interface Item {
+  id: string;
+  nome: string;
+}
 
 export default function App() {
   const [texto, setTexto] = useState('');
