@@ -105,4 +105,15 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#055200",
   },
+	
+botaoExcluir: {
+	backgroundColor: '#ff4d4d',
+	padding: 8,
+	borderRadius: 5,
+},
+	
+botaoTexto: {
+	color: '#fff',
+	fontWeight: 'bold',
+},
 });
